@@ -1,4 +1,4 @@
-var socket = io("ws://multiplayertanks.rhcloud.com:8000");
+var socket = io();
 
 var server_tanks = {};
 
