@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 // Chatroom
 server.listen(app.get('port'), function () {
-  console.log('Server listening at port %d', port);
+  console.log('Server listening at port %d', app.get('port'));
 });
 
 var io = require('socket.io')(server).listen(server, {'pingTimeout':4000, 'pingInterval':80,"transport":['websocket']});
