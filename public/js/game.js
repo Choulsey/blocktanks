@@ -52,6 +52,7 @@ socket.on("server tanks",function(msg){
 });
 
 socket.on("new bullet",function(msg){
+	alert(msg.changey);
 	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
 });
 
