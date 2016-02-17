@@ -51,6 +51,10 @@ socket.on("server tanks",function(msg){
 	
 });
 
+socket.on("new bullet",function(msg){
+	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
+});
+
 socket.on("disconnection",function(msg){
 	server_tanks[msg].destroy();
 	delete server_tanks[msg];
@@ -206,10 +210,29 @@ function make_bullet(tank){
 	new_bullet.bounces = 0;
 	return new_bullet;
 }
+
+function make_server_bullet(x,y,changex,changey){
+	new_bullet = game.add.sprite(x,y,'bullet');
+	new_bullet.anchor.set(0.5);
+	new_bullet.scale.set(TANK_SIZE);
+	new_bullet.changex = changex;
+	new_bullet.changey = changey;
+	new_bullet.bounces = 0;
+	return new_bullet;
+}
+
 function update(){
 	move_tank(tank);
 	aim_tank(tank);	
 	if (game.input.mousePointer.isDown && BULLET_COUNTER > FIRE_RATE){
+		socket.emit("new bullet",{
+			x:tank.body.x,
+			y:tank.body.y,
+			changex:Math.cos(tank.body.rotation),
+			changey:Math.sin(tank.body.rotation)
+			
+		});
+			
 		bullets.push(make_bullet(tank));
 		BULLET_COUNTER = 0;	
 	}

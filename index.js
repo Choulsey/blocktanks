@@ -39,6 +39,11 @@ io.on('connection', function (socket) {
 		socket.broadcast.emit("update tank",{username:msg.username,x:msg.x,y:msg.y});
 	});
 	
+	socket.on("new bullet",function(msg){
+
+		socket.broadcast.emit("new bullet",{x:msg.x,y:msg.y,changex:msg.changex,changey:msg.changey});
+	});
+	
 	socket.on('disconnect', function(){
 		console.log(socket.username + " logged off");
 		
