@@ -52,7 +52,7 @@ socket.on("server tanks",function(msg){
 });
 
 socket.on("new bullet",function(msg){
-	alert(msg.changey);
+
 	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
 });
 
@@ -229,8 +229,8 @@ function update(){
 		socket.emit("new bullet",{
 			x:tank.body.x,
 			y:tank.body.y,
-			changex:Math.cos(tank.body.rotation),
-			changey:Math.sin(tank.body.rotation)
+			changex:Math.cos(tank.arm.rotation),
+			changey:Math.sin(tank.arm.rotation)
 			
 		});
 			
