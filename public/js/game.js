@@ -1,4 +1,4 @@
-var socket = io(window.location.hostname);
+var socket = io(https://immense-coast-93350.herokuapp.com/);
 
 var server_tanks = {};
 
