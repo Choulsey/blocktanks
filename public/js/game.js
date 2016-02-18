@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io(window.location.hostname);
 
 var server_tanks = {};
 
@@ -251,8 +251,8 @@ function update(){
 			bullets.splice(i,1);
 			continue
 		}
-		bullets[i].y -= bullets[i].changex * BULLET_SPEED
-		bullets[i].x += bullets[i].changey * BULLET_SPEED
+		bullets[i].y -= bullets[i].changex * BULLET_SPEED;
+		bullets[i].x += bullets[i].changey * BULLET_SPEED;
 		}
 		
 	BULLET_COUNTER += 1;
