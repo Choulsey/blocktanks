@@ -2,7 +2,7 @@
 var express = require('express')
 	app = express(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server,{"transports",["websocket"]}),
+	io = require('socket.io').listen(server,{"transports":["websocket"]}),
 
 app.set('port', (process.env.PORT || 5000));
 
