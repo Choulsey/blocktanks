@@ -2,7 +2,7 @@
 var express = require('express')
 	app = express(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server, {"transports": ["xhr-polling"],"polling duration": 10}),
+	io = require('socket.io').listen(server),
 
 app.set('port', (process.env.PORT || 5000));
 
