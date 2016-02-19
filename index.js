@@ -1,23 +1,21 @@
 // Setup basic express server
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
+var express = require('express')
+	app = express(),
+	server = require('http').createServer(app),
+	io = require('socket.io').listen(server, {"transports":["websocket"]}),
 
 app.set('port', (process.env.PORT || 5000));
 
 var tankdata = {}
 
-
+server.listen(app.get('port'));
 
 // Routing
 app.use(express.static(__dirname + '/public'));
 
 // Chatroom
-server.listen(app.get('port'), function () {
-  console.log('Server listening at port %d', app.get('port'));
-});
 
-var io = require('socket.io')(server).listen(server, {"transports":["websocket"]});
+
 
 io.on('connection', function (socket) {
 	socket.on("new tank",function(msg){
