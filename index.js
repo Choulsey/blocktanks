@@ -17,7 +17,7 @@ server.listen(app.get('port'), function () {
   console.log('Server listening at port %d', app.get('port'));
 });
 
-var io = require('socket.io')(server).listen(server, {'pingTimeout':4000, 'pingInterval':2000, "transport":"websocket"});
+var io = require('socket.io')(server).listen(server, {'pingTimeout':4000, 'pingInterval':2000, "transports":["websocket"]});
 
 io.on('connection', function (socket) {
 	socket.on("new tank",function(msg){
