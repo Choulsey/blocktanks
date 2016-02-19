@@ -2,7 +2,7 @@
 var express = require('express')
 	app = express(),
 	server = require('http').createServer(app),
-	io = require('socket.io').listen(server,{"pingInterval":4000,"pingTimeout":2000,"transports":["polling"]}),
+	io = require('socket.io').listen(server,{"pingInterval":2000,"pingTimeout":1000,"transports":["polling"]}),
 
 app.set('port', (process.env.PORT || 5000));
 
