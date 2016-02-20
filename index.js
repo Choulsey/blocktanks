@@ -8,6 +8,16 @@ server.listen(app.get('port'));
 app.use(express.static(__dirname + '/public'));
 var wss = new WebSocketServer({server: server});
 
+tanks = {}
+
+broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    client.send(data);
+  });
+};
+
+
+
 
 wss.on('connection', function(ws) {
   ws.on('message', function(message) {
@@ -17,7 +27,8 @@ wss.on('connection', function(ws) {
 	console.log(evt + " is the event");
 	console.log(data + " is the data");
 	if (evt == "new tank"){
-		ws.send(message);
+		
+		broadcast(message);
 	}
 	
   });
