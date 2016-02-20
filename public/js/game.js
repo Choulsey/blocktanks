@@ -1,4 +1,4 @@
-var ws = new WebSocket(location.origin.replace(/^http/, 'ws'))
+
 
 
 var server_tanks = {};
@@ -6,12 +6,13 @@ var server_tanks = {};
 name = prompt("What is your name?");
 
 
-ws.onmessage = function(evt){
-    alert("I got data: " + evt.data)
- }
 
 
-
+var socket = new FancyWebSocket();
+socket.send("connection",{username:"kevin",message:"yo"})
+socket.bind("connection",function(data){
+  alert(data.username + ' says: ' + data.message);
+});
 var W = window.innerWidth;
 var H =  window.innerHeight;
 
