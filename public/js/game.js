@@ -1,10 +1,14 @@
-var socket = io.connect(location.origin.replace(/^http/, 'ws'));
+var ws = location.origin.replace(/^http/, 'ws'))
+
 
 var server_tanks = {};
 
 name = prompt("What is your name?");
 
 
+ws.onmessage = function(evt){
+    alert("I got data: " + evt.data)
+ }
 
 
 
@@ -13,56 +17,7 @@ var H =  window.innerHeight;
 
 var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:create,update:update,render:render},false,false);
 
-socket.on("new tank",function(msg){
-	
-	new_tank = game.add.sprite(msg.x,msg.y,"body");
-	new_tank.anchor.set(0.5);
-	new_tank.scale.set(TANK_SIZE);
-	server_tanks[msg.username] = new_tank;
-});
 
-socket.on("update tank",function(msg){
-	//console.log(msg);
-	//console.log(server_tanks);
-	server_tanks[msg.username].x = msg.x;
-	server_tanks[msg.username].y = msg.y;
-	
-	
-});
-
-socket.on("server tanks",function(msg){
-	alert("tanks found!");
-	console.log(msg);
-	if (msg != {}){
-	for (var server_tank in msg){
-		if(server_tank != name){
-		
-		
-		new_server_tank = game.add.sprite(msg[server_tank].x,msg[server_tank].y,"body");
-		new_server_tank.anchor.set(0.5);
-		new_server_tank.scale.set(TANK_SIZE);
-		server_tanks[server_tank] = new_server_tank;
-		
-		}
-	}
-	}
-	
-	
-	
-});
-
-socket.on("new bullet",function(msg){
-
-	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
-});
-
-socket.on("disconnection",function(msg){
-	server_tanks[msg].destroy();
-	delete server_tanks[msg];
-	
-	
-	
-});
 
 var delay = 0;
 var TANK_SPEED = 3;
@@ -110,7 +65,6 @@ function create(){
 	tank.arm.scale.set(TANK_SIZE * ARM_SIZE);
     game.world.setBounds(0, 0, WORLD_BOUNDS.x, WORLD_BOUNDS.y);
 	game.camera.follow(tank.body);
-	socket.emit("new tank",{username:name,x:tank.body.x,y:tank.body.y});
 	
 }
 function collides (a,b){
@@ -169,29 +123,28 @@ function move_tank(tank){
 	moved = false;
 	if(game.input.keyboard.isDown(Phaser.Keyboard.A) && collision.l == false)
 	{
-		moved = true;
+		
 		tank.body.x -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.D) && collision.r == false)
 	{
-		moved = true;
+		
 		tank.body.x += TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.W) && collision.t == false)
 	{
-		moved = true;
+		
 		tank.body.y -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.S) && collision.b == false)
 	{
-		moved = true;
+		
 		tank.body.y += TANK_SPEED;
 	}
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
-	if(moved){
-		socket.emit("update tank",{username:name,x:tank.body.x,y:tank.body.y})
-	}
+	
+	
 }
 function deg(radians) {
   return radians * 180 / Math.PI;
@@ -223,6 +176,7 @@ function make_server_bullet(x,y,changex,changey){
 }
 
 function update(){
+	
 	move_tank(tank);
 	aim_tank(tank);	
 	if (game.input.mousePointer.isDown && BULLET_COUNTER > FIRE_RATE){

@@ -1,55 +1,18 @@
-// Setup basic express server
-var express = require('express')
-	app = express(),
-	server = require('http').createServer(app),
-	io = require('socket.io').listen(server,{"pingInterval":4000,"pingTimeout":4000,"transports":["polling"]}),
+var WebSocketServer = require("ws").Server
+var http = require("http")
+var express = require("express")
+var app = express()
+var port = process.env.PORT || 5000
 
-app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + "/"))
 
-var tankdata = {}
+var server = http.createServer(app)
+server.listen(port)
 
-server.listen(app.get('port'));
-
-// Routing
-app.use(express.static(__dirname + '/public'));
-
-// Chatroom
+var wss = new WebSocketServer({server: server})
 
 
-
-io.on('connection', function (socket) {
-	socket.on("new tank",function(msg){
-		
-		console.log(msg.username + " connected");
-		
-		socket.username = msg.username;
-		tankdata[msg.username] = {x:msg.x,y:msg.y};
-		console.log(msg.x);
-		console.log(msg.y);
-		socket.broadcast.emit("new tank",{username:msg.username,x:msg.x,y:msg.y})
-		socket.emit("server tanks",tankdata);
-		console.log(tankdata);
-	})
-	socket.on("update tank",function(msg){
-
-		tankdata[msg.username] = {x:msg.x,y:msg.y};
-		
-		socket.broadcast.emit("update tank",{username:msg.username,x:msg.x,y:msg.y});
-	});
-	
-	socket.on("new bullet",function(msg){
-
-		socket.broadcast.emit("new bullet",{x:msg.x,y:msg.y,changex:msg.changex,changey:msg.changey});
-	});
-	
-	socket.on('disconnect', function(){
-		console.log(socket.username + " logged off");
-		
-		delete tankdata[socket.username];
-		socket.broadcast.emit("disconnection",socket.username);
-		console.log(tankdata);
-	});
-	
+wss.on("connection", function(ws) {
+	ws.send("hello");
 });
-
 
