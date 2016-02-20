@@ -1,19 +1,24 @@
-var WebSocketServer = require("ws").Server
+// Setup basic express server
+var WebSocketServer = require("ws").Server;
 
-var express = require("express");
-var app = express()
-var server = require("http").createServer(app);
-var port = process.env.PORT || 5000
+var express = require('express')
+app = express(),
+server = require('http').createServer(app),
+io = require('socket.io').listen(server,{"pingInterval":4000,"pingTimeout":4000,"transports":["polling"]}),
 
-app.use(express.static(__dirname + "/"))
-
-
-server.listen(port)
-
-var wss = new WebSocketServer({server: server})
+app.set('port', (process.env.PORT || 5000));
 
 
-wss.on("connection", function(ws) {
-	ws.send("hello");
-});
+
+server.listen(app.get('port'));
+
+// Routing
+app.use(express.static(__dirname + '/public'));
+
+// Chatroom
+
+var wss = new WebSocketServer({server: server});
+
+
+
 
