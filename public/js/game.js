@@ -10,7 +10,7 @@ name = prompt("What is your name?");
 
 var socket = new FancyWebSocket(ws);
 socket.send("connection",{username:"kevin",message:"yo"})
-socket.bind("connection",function(data){
+socket.bind("new tank",function(data){
   alert(data.username + ' says: ' + data.message);
 });
 var W = window.innerWidth;

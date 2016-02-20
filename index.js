@@ -16,7 +16,7 @@ wss.on('connection', function(ws) {
 	data = dataObject.data;
 	console.log(evt + " is the event");
 	console.log(data + " is the data");
-	if (evt == "connection"){
+	if (evt == "new tank"){
 		ws.send(message);
 	}
 	
