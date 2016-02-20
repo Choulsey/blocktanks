@@ -1,16 +1,11 @@
 socket.on("new tank",function(msg){
 	
-	new_tank = game.add.sprite(msg.x,msg.y,"body");
-	new_tank.anchor.set(0.5);
-	new_tank.scale.set(TANK_SIZE);
-	server_tanks[msg.username] = new_tank;
+	
 });
 
 socket.on("update tank",function(msg){
 	//console.log(msg);
 	//console.log(server_tanks);
-	server_tanks[msg.username].x = msg.x;
-	server_tanks[msg.username].y = msg.y;
 	
 	
 });

@@ -10,9 +10,21 @@ name = prompt("What is your name?");
 
 var socket = new FancyWebSocket(ws);
 socket.send("connection",{username:"kevin",message:"yo"})
-socket.bind("new tank",function(data){
-  alert(data.username + ' is at: x, ' + data.x + ". y, " + data.y);
+
+socket.bind("new tank",function(msg){
+	new_tank = game.add.sprite(msg.x,msg.y,"body");
+	new_tank.anchor.set(0.5);
+	new_tank.scale.set(TANK_SIZE);
+	server_tanks[msg.username] = new_tank;
 });
+
+socket.bind("update tank",function(msg){
+	server_tanks[msg.username].x = msg.x;
+	server_tanks[msg.username].y = msg.y;
+
+});
+
+
 var W = window.innerWidth;
 var H =  window.innerHeight;
 
