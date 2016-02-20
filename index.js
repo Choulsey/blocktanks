@@ -14,6 +14,8 @@ wss.on('connection', function(ws) {
 	dataObject = JSON.parse(message);
 	evt = dataObject[0];
 	data = dataObject[1];
+	console.log(evt + " is the event");
+	console.log(data + " is the data");
 	if (evt == "connection"){
 		ws.send(message);
 	}
