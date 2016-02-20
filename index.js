@@ -26,7 +26,8 @@ wss.on('connection', function(ws) {
 	data = dataObject.data;
 	
 	if (evt == "new tank"){
-		
+		tanks[data.username] = {x:data.x,y:data.y};
+		console.log(tanks);
 		broadcast(message);
 	}
 	if (evt == "update tank"){
