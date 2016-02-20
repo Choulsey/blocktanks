@@ -12,16 +12,19 @@ var socket = new FancyWebSocket(ws);
 
 
 socket.bind("new tank",function(msg){
-	new_tank = game.add.sprite(msg.x,msg.y,"body");
-	new_tank.anchor.set(0.5);
-	new_tank.scale.set(TANK_SIZE);
-	server_tanks[msg.username] = new_tank;
+	if (msg.username != name){
+		new_tank = game.add.sprite(msg.x,msg.y,"body");
+		new_tank.anchor.set(0.5);
+		new_tank.scale.set(TANK_SIZE);
+		server_tanks[msg.username] = new_tank;
+	}
 });
 
 socket.bind("update tank",function(msg){
-	server_tanks[msg.username].x = msg.x;
-	server_tanks[msg.username].y = msg.y;
-
+	if (msg.username != name){
+		server_tanks[msg.username].x = msg.x;
+		server_tanks[msg.username].y = msg.y;
+	}
 });
 
 
