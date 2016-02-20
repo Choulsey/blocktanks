@@ -9,7 +9,7 @@ name = prompt("What is your name?");
 
 
 var socket = new FancyWebSocket(ws);
-socket.send("connection",{username:"kevin",message:"yo"})
+
 
 socket.bind("new tank",function(msg){
 	new_tank = game.add.sprite(msg.x,msg.y,"body");
@@ -137,26 +137,28 @@ function move_tank(tank){
 	moved = false;
 	if(game.input.keyboard.isDown(Phaser.Keyboard.A) && collision.l == false)
 	{
-		
+		moved = true;
 		tank.body.x -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.D) && collision.r == false)
 	{
-		
+		moved = true;
 		tank.body.x += TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.W) && collision.t == false)
 	{
-		
+		moved = true;
 		tank.body.y -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.S) && collision.b == false)
 	{
-		
+		moved = true;
 		tank.body.y += TANK_SPEED;
 	}
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
+	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y})
+
 	
 	
 }

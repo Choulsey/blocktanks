@@ -24,13 +24,15 @@ wss.on('connection', function(ws) {
 	dataObject = JSON.parse(message);
 	evt = dataObject.event;
 	data = dataObject.data;
-	console.log(evt + " is the event");
-	console.log(data + " is the data");
+	
 	if (evt == "new tank"){
 		
 		broadcast(message);
 	}
-	
+	if (evt == "update tank"){
+		
+		broadcast(message);
+	}
   });
    
  
