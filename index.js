@@ -11,7 +11,13 @@ var wss = new WebSocketServer({server: server});
 
 wss.on('connection', function(ws) {
   ws.on('message', function(message) {
-	ws.send(message);
+	dataObject = JSON.parse(message);
+	evt = dataObject[0];
+	data = dataObject[1];
+	if (evt == "connection"){
+		ws.send(message);
+	}
+	
   });
    
  

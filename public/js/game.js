@@ -66,6 +66,7 @@ function create(){
 	tank.arm.scale.set(TANK_SIZE * ARM_SIZE);
     game.world.setBounds(0, 0, WORLD_BOUNDS.x, WORLD_BOUNDS.y);
 	game.camera.follow(tank.body);
+	socket.send("new tank",{username:name,x:tank.body.x,y:tank.body.y})
 	
 }
 function collides (a,b){
