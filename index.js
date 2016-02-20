@@ -12,8 +12,8 @@ var wss = new WebSocketServer({server: server});
 wss.on('connection', function(ws) {
   ws.on('message', function(message) {
 	dataObject = JSON.parse(message);
-	evt = dataObject[0];
-	data = dataObject[1];
+	evt = dataObject.event;
+	data = dataObject.data;
 	console.log(evt + " is the event");
 	console.log(data + " is the data");
 	if (evt == "connection"){
