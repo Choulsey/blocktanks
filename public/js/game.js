@@ -1,4 +1,4 @@
-var ws = location.origin.replace(/^http/, 'ws'))
+var ws = new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 
 var server_tanks = {};

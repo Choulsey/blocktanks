@@ -1,12 +1,13 @@
 var WebSocketServer = require("ws").Server
-var http = require("http")
-var express = require("express")
+
+var express = require("express");
 var app = express()
+var server = require("http").createServer(app);
 var port = process.env.PORT || 5000
 
 app.use(express.static(__dirname + "/"))
 
-var server = http.createServer(app)
+
 server.listen(port)
 
 var wss = new WebSocketServer({server: server})
