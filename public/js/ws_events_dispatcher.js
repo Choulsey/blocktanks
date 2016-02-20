@@ -35,8 +35,8 @@ socket.bind('some_event', function(data){
 socket.send( 'some_event', {name: 'ismael', message : 'Hello world'} );
 */
 
-var FancyWebSocket = function(url){
-  var conn = new WebSocket(url);
+var FancyWebSocket = function(websocket){
+  var conn = websocket
 
   var callbacks = {};
 

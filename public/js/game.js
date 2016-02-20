@@ -1,5 +1,5 @@
 
-var url = location.origin.replace(/^http/, 'ws')
+var ws = new WebSocket(location.origin.replace(/^http/, 'ws'))
 
 var server_tanks = {};
 
@@ -8,7 +8,7 @@ name = prompt("What is your name?");
 
 
 
-var socket = new FancyWebSocket(url);
+var socket = new FancyWebSocket(ws);
 socket.send("connection",{username:"kevin",message:"yo"})
 socket.bind("connection",function(data){
   alert(data.username + ' says: ' + data.message);
