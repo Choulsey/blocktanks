@@ -29,7 +29,7 @@ wss.on('connection', function(ws) {
 		tanks[data.username] = {x:data.x,y:data.y};
 		console.log(tanks);
 		broadcast(message);
-		ServerTanks = ["server tanks",tanks];
+		ServerTanks = {event:"server tanks",data:tanks};
 		
 		ws.send(JSON.stringify(ServerTanks));
 	}
