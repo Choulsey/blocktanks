@@ -30,6 +30,7 @@ wss.on('connection', function(ws) {
 		console.log(tanks);
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
+		wss.client.
 		
 		ws.send(JSON.stringify(ServerTanks));
 	}

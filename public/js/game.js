@@ -10,6 +10,9 @@ name = prompt("What is your name?");
 
 var socket = new FancyWebSocket(ws);
 
+ws.onclose(function(){
+	alert('hello');
+});
 
 socket.bind("new tank",function(msg){
 	if (msg.username != name){
@@ -220,7 +223,7 @@ function update(){
 	move_tank(tank);
 	aim_tank(tank);	
 	if (game.input.mousePointer.isDown && BULLET_COUNTER > FIRE_RATE){
-		socket.emit("new bullet",{
+		socket.send("new bullet",{
 			x:tank.body.x,
 			y:tank.body.y,
 			changex:Math.cos(tank.arm.rotation),
