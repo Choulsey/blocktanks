@@ -27,7 +27,7 @@ wss.on('connection', function(ws) {
 	
 	if (evt == "new tank"){
 		tanks[data.username] = {x:data.x,y:data.y};
-		console.log(tanks);
+		console.log(ws);
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
 		
@@ -38,9 +38,7 @@ wss.on('connection', function(ws) {
 		
 		broadcast(message);
 	}
-	if (evt == "disconnect"){
-		console.log(data.name + " logged off");
-	}
+
   });
    
  
