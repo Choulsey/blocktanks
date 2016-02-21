@@ -29,6 +29,9 @@ wss.on('connection', function(ws) {
 		tanks[data.username] = {x:data.x,y:data.y};
 		console.log(tanks);
 		broadcast(message);
+		ServerTanks = ["server tanks",tanks];
+		
+		ws.send(JSON.stringify(ServerTanks));
 	}
 	if (evt == "update tank"){
 		

@@ -20,6 +20,27 @@ socket.bind("new tank",function(msg){
 	}
 });
 
+socket.bind("server tanks",function(msg){
+	alert("tanks found!");
+	console.log(msg);
+	if (msg != {}){
+	for (var server_tank in msg){
+		if(server_tank != name){
+		
+		
+		new_server_tank = game.add.sprite(msg[server_tank].x,msg[server_tank].y,"body");
+		new_server_tank.anchor.set(0.5);
+		new_server_tank.scale.set(TANK_SIZE);
+		server_tanks[server_tank] = new_server_tank;
+		
+		}
+	}
+	}
+	
+	
+
+});
+
 socket.bind("update tank",function(msg){
 	if (msg.username != name){
 		server_tanks[msg.username].x = msg.x;
