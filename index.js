@@ -28,7 +28,7 @@ wss.on('connection', function(ws) {
 	if (evt == "new tank"){
 		clientId = data.username;
 		tanks[data.username] = {x:data.x,y:data.y};
-		console.log(ws);
+		
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
 		
@@ -45,6 +45,7 @@ wss.on('connection', function(ws) {
  ws.on('close', function() {
    delete tanks[clientId];
    console.log(clientId + " logged off.");
+   broadcast(JSON.stringify({event:"disconnection",data:{username:clientId}}));
  });
  
 

@@ -10,8 +10,9 @@ name = prompt("What is your name?");
 
 var socket = new FancyWebSocket(ws);
 
-ws.onclose(function(){
-	socket.send("disconnect",{name:name});
+socket.bind("disconnection",function(msg){
+	server_tanks[msg.username].destroy();
+	delete server_tanks[msg.username];
 });
 
 socket.bind("new tank",function(msg){
