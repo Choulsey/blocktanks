@@ -11,7 +11,7 @@ name = prompt("What is your name?");
 var socket = new FancyWebSocket(ws);
 
 ws.onclose(function(){
-	alert('hello');
+	socket.send("disconnect",{name:name});
 });
 
 socket.bind("new tank",function(msg){

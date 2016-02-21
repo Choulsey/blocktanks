@@ -30,13 +30,16 @@ wss.on('connection', function(ws) {
 		console.log(tanks);
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
-		wss.client.
+		
 		
 		ws.send(JSON.stringify(ServerTanks));
 	}
 	if (evt == "update tank"){
 		
 		broadcast(message);
+	}
+	if (evt == "disconnect"){
+		console.log(data.name + " logged off");
 	}
   });
    
