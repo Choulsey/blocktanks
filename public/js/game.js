@@ -6,11 +6,6 @@ var server_tanks = {};
 name = prompt("What is your name?");
 
 
-window.onbeforeunload = function (e) {
-	ws.close();
-	return("Are you sure you want to quit?");
-
-};
 
 var socket = new FancyWebSocket(ws);
 
