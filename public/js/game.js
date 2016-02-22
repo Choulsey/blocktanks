@@ -49,6 +49,8 @@ socket.bind("update tank",function(msg){
 	if (msg.username != name){
 		server_tanks[msg.username].x = msg.x;
 		server_tanks[msg.username].y = msg.y;
+		server_tanks[msg.username].ydir = msg.ydir;
+		server_tanks[msg.username].xdir = msg.xdir;
 	}
 });
 
@@ -80,7 +82,24 @@ game.renderer.roundPixels = true;
 
 
 
+function update_server_tanks(){
+	for (var tank in server_tanks){
 
+		if (server_tanks[tank].xdir == "A"){
+			server_tanks[tank].x -= TANK_SPEED;
+		}
+		if (server_tanks[tank].xdir == "D"){
+			server_tanks[tank].x += TANK_SPEED;
+		}
+		if (server_tanks[tank].ydir == "W"){
+			server_tanks[tank].y -= TANK_SPEED;
+		}
+		if (server_tanks[tank].ydir == "S"){
+			server_tanks[tank].y += TANK_SPEED;
+		}
+	}
+
+}
 
 function preload(){
 	game.load.image('body','assets/Tank Body.png');
@@ -163,30 +182,37 @@ function move_tank(tank){
 		}
 	},this);
 	moved = false;
+	verticalDir = 0;
+	horizontalDir = 0;
 	if(game.input.keyboard.isDown(Phaser.Keyboard.A) && collision.l == false)
 	{
+		horizontalDir = "A";
 		moved = true;
 		tank.body.x -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.D) && collision.r == false)
 	{
+		horizontalDir = "D";
 		moved = true;
 		tank.body.x += TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.W) && collision.t == false)
 	{
+		verticalDir = "W";
 		moved = true;
 		tank.body.y -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.S) && collision.b == false)
 	{
+		verticalDir = "S";
 		moved = true;
 		tank.body.y += TANK_SPEED;
 	}
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
-	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y})
-
+	if (moved){
+	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,xdir:horizontalDir,ydir:verticalDir});
+	}
 	
 	
 }
