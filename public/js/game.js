@@ -8,7 +8,7 @@ name = prompt("What is your name?");
 
 window.onunload = function (e) {
 	ws.close();
-	alert("Closing page.");
+	return("Closing page.");
 	
 };
 
