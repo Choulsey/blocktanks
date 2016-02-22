@@ -28,13 +28,13 @@ wss.on('connection', function(ws) {
 	if (evt == "new tank"){
 		console.log(data.username + " logged on.")
 		
-		clientId = data.username;
-		tanks[data.username] = {x:data.x,y:data.y};
+		
+		tanks[data.username] = {x:data.x,y:data.y,connection:ws};
 		
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
 		
-		console.log(tanks)
+		
 		ws.send(JSON.stringify(ServerTanks));
 	}
 	if (evt == "update tank"){
@@ -44,11 +44,17 @@ wss.on('connection', function(ws) {
 
   });
   
- ws.on('close', function(connection) {
-   delete tanks[clientId];
-   console.log(connection.remoteAddress + " logged off.");
-   console.log(tanks)
-   broadcast(JSON.stringify({event:"disconnection",data:{username:clientId}}));
+ ws.on('close', function() {
+   
+   console.log(" user logged off.");
+   for (var key in tanks){
+	   if (tanks[key].connection == ws){
+		   disconnectedplayer = key;
+		   delete tanks[key];
+	   }
+   }
+   
+   broadcast(JSON.stringify({event:"disconnection",data:{username:disconnectedplayer}}));
  });
  
 
