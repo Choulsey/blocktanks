@@ -44,9 +44,9 @@ wss.on('connection', function(ws) {
 
   });
   
- ws.on('close', function() {
+ ws.on('close', function(connection) {
    delete tanks[clientId];
-   console.log(clientId + " logged off.");
+   console.log(connection.remoteAddress + " logged off.");
    console.log(tanks)
    broadcast(JSON.stringify({event:"disconnection",data:{username:clientId}}));
  });
