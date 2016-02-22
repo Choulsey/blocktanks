@@ -97,7 +97,7 @@ function update_server_tanks(){
 		if (server_tanks[key].ydir == "S"){
 			server_tanks[key].y += TANK_SPEED;
 		}
-		alert("test")
+		
 	}
 
 }
@@ -211,9 +211,9 @@ function move_tank(tank){
 	}
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
-	if (moved){
+	
 	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,xdir:horizontalDir,ydir:verticalDir});
-	}
+	
 	
 	
 }
