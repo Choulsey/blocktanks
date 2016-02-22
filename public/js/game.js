@@ -83,20 +83,21 @@ game.renderer.roundPixels = true;
 
 
 function update_server_tanks(){
-	for (var tank in server_tanks){
+	for (var key in server_tanks){
 
-		if (server_tanks[tank].xdir == "A"){
-			server_tanks[tank].x -= TANK_SPEED;
+		if (server_tanks[key].xdir == "A"){
+			server_tanks[key].x -= TANK_SPEED;
 		}
-		if (server_tanks[tank].xdir == "D"){
-			server_tanks[tank].x += TANK_SPEED;
+		if (server_tanks[key].xdir == "D"){
+			server_tanks[key].x += TANK_SPEED;
 		}
-		if (server_tanks[tank].ydir == "W"){
-			server_tanks[tank].y -= TANK_SPEED;
+		if (server_tanks[key].ydir == "W"){
+			server_tanks[key].y -= TANK_SPEED;
 		}
-		if (server_tanks[tank].ydir == "S"){
-			server_tanks[tank].y += TANK_SPEED;
+		if (server_tanks[key].ydir == "S"){
+			server_tanks[key].y += TANK_SPEED;
 		}
+		alert("test")
 	}
 
 }
