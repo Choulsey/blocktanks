@@ -6,7 +6,7 @@ var server_tanks = {};
 name = prompt("What is your name?");
 
 
-window.onunload = function (e) {
+window.onbeforeunload = function (e) {
 	ws.close();
 	return("Closing page.");
 	
