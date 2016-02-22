@@ -27,14 +27,14 @@ wss.on('connection', function(ws) {
 	
 	if (evt == "new tank"){
 		console.log(data.username + " logged on.")
-		console.log(tanks)
+		
 		clientId = data.username;
 		tanks[data.username] = {x:data.x,y:data.y};
 		
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
 		
-		
+		console.log(tanks)
 		ws.send(JSON.stringify(ServerTanks));
 	}
 	if (evt == "update tank"){
