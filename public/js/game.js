@@ -8,8 +8,10 @@ name = prompt("What is your name?");
 
 window.onbeforeunload = function (e) {
 	ws.close();
-	return("Closing page.");
-	
+	return("Are you sure you want to quit?");
+	ws.onclose(function(){
+		alert("test")
+	})
 };
 
 var socket = new FancyWebSocket(ws);
