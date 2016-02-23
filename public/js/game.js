@@ -53,6 +53,11 @@ socket.bind("update tank",function(msg){
 	}
 });
 
+socket.bind("new bullet",function(msg){
+
+	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
+
+});
 
 var W = window.innerWidth;
 var H =  window.innerHeight;
