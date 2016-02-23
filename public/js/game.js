@@ -16,10 +16,16 @@ socket.bind("disconnection",function(msg){
 
 socket.bind("new tank",function(msg){
 	if (msg.username != name){
+		server_tanks[msg.username] = {};
 		new_tank = game.add.sprite(msg.x,msg.y,"body");
 		new_tank.anchor.set(0.5);
 		new_tank.scale.set(TANK_SIZE);
-		server_tanks[msg.username] = new_tank;
+		server_tanks[msg.username].body = new_tank;
+		
+		new_arm = game.add.sprite(msg.x,msg.y,'arm');
+		new_arm.anchor.set(0.5);
+		new_arm.scale.set(TANK_SIZE * ARM_SIZE);
+		server_tanks[msg.username].arm = new_arm;
 	}
 });
 
@@ -29,12 +35,18 @@ socket.bind("server tanks",function(msg){
 	if (msg != {}){
 	for (var server_tank in msg){
 		if(server_tank != name){
+			
 		alert("tank found!");
-		
+		server_tanks[server_tank] = {};
 		new_server_tank = game.add.sprite(msg[server_tank].x,msg[server_tank].y,"body");
 		new_server_tank.anchor.set(0.5);
 		new_server_tank.scale.set(TANK_SIZE);
-		server_tanks[server_tank] = new_server_tank;
+		server_tanks[server_tank].body = new_server_tank;
+		
+		new_arm = game.add.sprite(msg[server_tank].x,msg[server_tank].y,'arm');
+		new_arm.anchor.set(0.5);
+		new_arm.scale.set(TANK_SIZE * ARM_SIZE);
+		server_tanks[server_tank].arm = new_arm;
 		
 		}
 	}
@@ -46,17 +58,19 @@ socket.bind("server tanks",function(msg){
 
 socket.bind("update tank",function(msg){
 	if (msg.username != name){
-		server_tanks[msg.username].x = msg.x;
-		server_tanks[msg.username].y = msg.y;
-		server_tanks[msg.username].ydir = msg.ydir;
-		server_tanks[msg.username].xdir = msg.xdir;
+		server_tanks[msg.username].body.x = msg.x;
+		server_tanks[msg.username].body.y = msg.y;
+		server_tanks[msg.username].body.ydir = msg.ydir;
+		server_tanks[msg.username].body.xdir = msg.xdir;
+		server_tanks[msg.username].arm.x = msg.x;
+		server_tanks[msg.username].arm.y = msg.y;
 	}
 });
 
 socket.bind("new bullet",function(msg){
-
+	if (msg.name != name){
 	bullets.push(make_server_bullet(msg.x,msg.y,msg.changex,msg.changey));
-
+	}
 });
 
 var W = window.innerWidth;
@@ -89,18 +103,21 @@ game.renderer.roundPixels = true;
 function update_server_tanks(){
 	for (var key in server_tanks){
 
-		if (server_tanks[key].xdir == "A"){
-			server_tanks[key].x -= TANK_SPEED;
+		if (server_tanks[key].body.xdir == "A"){
+			server_tanks[key].body.x -= TANK_SPEED;
 		}
-		if (server_tanks[key].xdir == "D"){
-			server_tanks[key].x += TANK_SPEED;
+		if (server_tanks[key].body.xdir == "D"){
+			server_tanks[key].body.x += TANK_SPEED;
 		}
-		if (server_tanks[key].ydir == "W"){
-			server_tanks[key].y -= TANK_SPEED;
+		if (server_tanks[key].body.ydir == "W"){
+			server_tanks[key].body.y -= TANK_SPEED;
 		}
-		if (server_tanks[key].ydir == "S"){
-			server_tanks[key].y += TANK_SPEED;
+		if (server_tanks[key].body.ydir == "S"){
+			server_tanks[key].body.y += TANK_SPEED;
 		}
+		
+		server_tanks[key].arm.x = msg.x;
+		server_tanks[key].arm.y = msg.y;
 		
 	}
 
@@ -259,7 +276,8 @@ function update(){
 			x:tank.body.x,
 			y:tank.body.y,
 			changex:Math.cos(tank.arm.rotation),
-			changey:Math.sin(tank.arm.rotation)
+			changey:Math.sin(tank.arm.rotation),
+			name:name
 			
 		});
 			
