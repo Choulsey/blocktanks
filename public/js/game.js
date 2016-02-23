@@ -116,8 +116,8 @@ function update_server_tanks(){
 			server_tanks[key].body.y += TANK_SPEED;
 		}
 		
-		server_tanks[key].arm.x = msg.x;
-		server_tanks[key].arm.y = msg.y;
+		server_tanks[key].arm.x = server_tanks[key].body.x;
+		server_tanks[key].arm.y = server_tanks[key].body.y;
 		
 	}
 
