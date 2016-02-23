@@ -64,6 +64,7 @@ socket.bind("update tank",function(msg){
 		server_tanks[msg.username].body.xdir = msg.xdir;
 		server_tanks[msg.username].arm.x = msg.x;
 		server_tanks[msg.username].arm.y = msg.y;
+		server_tanks[msg.username].arm.angle = msg.arm;
 	}
 });
 
@@ -118,6 +119,7 @@ function update_server_tanks(){
 		
 		server_tanks[key].arm.x = server_tanks[key].body.x;
 		server_tanks[key].arm.y = server_tanks[key].body.y;
+		
 		
 	}
 
@@ -233,7 +235,7 @@ function move_tank(tank){
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
 	
-	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,xdir:horizontalDir,ydir:verticalDir});
+	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,xdir:horizontalDir,ydir:verticalDir,arm:tank.arm.angle});
 	
 	
 	
