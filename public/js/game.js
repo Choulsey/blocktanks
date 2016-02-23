@@ -271,7 +271,7 @@ function make_server_bullet(x,y,changex,changey){
 }
 
 function update(){
-	update_server_tanks();
+	//update_server_tanks();
 	move_tank(tank);
 	aim_tank(tank);	
 	if (game.input.mousePointer.isDown && BULLET_COUNTER > FIRE_RATE){
