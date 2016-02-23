@@ -10,6 +10,7 @@ name = prompt("What is your name?");
 var socket = new FancyWebSocket(ws);
 
 socket.bind("disconnection",function(msg){
+	alert("some dude logged off");
 	server_tanks[msg.username].body.destroy();
 	server_tanks[msg.username].arm.destroy();
 	delete server_tanks[msg.username];
@@ -81,7 +82,7 @@ var H =  window.innerHeight;
 var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:create,update:update,render:render},false,false);
 
 
-
+var moved = 0;
 var delay = 0;
 var TANK_SPEED = 3;
 var unit = W/2500;
@@ -206,39 +207,42 @@ function move_tank(tank){
 			}
 		}
 	},this);
-	moved = false;
+	
 	verticalDir = 0;
 	horizontalDir = 0;
 	if(game.input.keyboard.isDown(Phaser.Keyboard.A) && collision.l == false)
 	{
 		horizontalDir = "A";
-		moved = true;
+		
 		tank.body.x -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.D) && collision.r == false)
 	{
 		horizontalDir = "D";
-		moved = true;
+		
 		tank.body.x += TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.W) && collision.t == false)
 	{
 		verticalDir = "W";
-		moved = true;
+		
 		tank.body.y -= TANK_SPEED;
 	}
 	if(game.input.keyboard.isDown(Phaser.Keyboard.S) && collision.b == false)
 	{
 		verticalDir = "S";
-		moved = true;
+		
 		tank.body.y += TANK_SPEED;
 	}
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
 	
-	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,xdir:horizontalDir,ydir:verticalDir,arm:tank.arm.angle});
+	if (moved == 2){
+	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,arm:tank.arm.angle});
+	moved = 0;
+	}
 	
-	
+	moved += 1;
 	
 }
 function deg(radians) {
