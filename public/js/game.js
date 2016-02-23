@@ -237,7 +237,7 @@ function move_tank(tank){
 	tank.arm.x = tank.body.x;
 	tank.arm.y = tank.body.y;
 	
-	if (moved == 2){
+	if (moved == 5){
 	socket.send("update tank",{username:name,x:tank.body.x,y:tank.body.y,arm:tank.arm.angle});
 	moved = 0;
 	}
