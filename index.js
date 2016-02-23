@@ -9,6 +9,7 @@ app.use(express.static(__dirname + '/public'));
 var wss = new WebSocketServer({server: server});
 
 tanks = {}
+clients = {}
 
 broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
@@ -29,7 +30,8 @@ wss.on('connection', function(ws) {
 		console.log(data.username + " logged on.")
 		
 		
-		tanks[data.username] = {x:data.x,y:data.y,connection:ws};
+		tanks[data.username] = {x:data.x,y:data.y};
+		clients[data.username] = {connection:ws};
 		
 		broadcast(message);
 		ServerTanks = {event:"server tanks",data:tanks};
@@ -47,10 +49,11 @@ wss.on('connection', function(ws) {
  ws.on('close', function() {
    
    console.log(" user logged off.");
-   for (var key in tanks){
-	   if (tanks[key].connection == ws){
+   for (var key in clients){
+	   if (clients[key].connection == ws){
 		   disconnectedplayer = key;
 		   delete tanks[key];
+		   delete clients[key];
 	   }
    }
    
