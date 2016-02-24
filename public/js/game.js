@@ -10,7 +10,7 @@ socket.bind("dead",function(msg){
 	
 	tank_explode = game.add.sprite(server_tanks[msg.username],server_tanks[msg.username].y,"bullet_explode",5);
 	tank_explode.anchor.set(0.5);
-	tank_explode.scale.set(2);
+	tank_explode.scale.set(5);
 	tank_explode_animation = tank_explode.animations.add('explode');
 	tank_explode_animation.play(25,false)
 	tank_explode_animation.onComplete.add(function(sprite){
