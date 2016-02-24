@@ -181,6 +181,25 @@ function collides (a,b){
 	
 };
 
+function simple_collides (a,b){
+	a.left  = (a.x - a.width * a.anchor.x)
+    a.top  = (a.y - a.height * a.anchor.y)
+    b.left  = (b.x - b.width * b.anchor.x) 
+    b.top  = (b.y - b.height * b.anchor.y) 
+	
+    if(a != undefined)
+    	{
+	    	return !(
+		        ((a.top + a.height) < (b.top)) ||
+		        (a.top > (b.top + b.height)) ||
+		        ((a.left + a.width) < b.left) ||
+		        (a.left > (b.left + b.width))
+		    );	
+    	}
+	}
+	
+	
+};
 function move_tank(tank){
 	collision = {t:false,b:false,l:false,r:false};
 	walls.forEach(function(wall){
@@ -303,7 +322,7 @@ function update(){
 			continue
 		}
 		
-		if (collides(tank.body,bullets[i])){
+		if (simple_collides(tank.body,bullets[i])){
 			alert('you dead');
 		}
 		
