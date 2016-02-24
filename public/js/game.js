@@ -1,16 +1,13 @@
-
 var ws = new WebSocket(location.origin.replace(/^http/, 'ws'))
-
 var server_tanks = {};
 
 name = prompt("What is your name?");
 
 
-
 var socket = new FancyWebSocket(ws);
 
 socket.bind("disconnection",function(msg){
-	alert("some dude logged off");
+	console.log("some dude logged off");
 	server_tanks[msg.username].body.destroy();
 	server_tanks[msg.username].arm.destroy();
 	delete server_tanks[msg.username];
@@ -62,8 +59,8 @@ socket.bind("update tank",function(msg){
 	if (msg.username != name){
 		server_tanks[msg.username].body.x = msg.x;
 		server_tanks[msg.username].body.y = msg.y;
-		server_tanks[msg.username].body.ydir = msg.ydir;
-		server_tanks[msg.username].body.xdir = msg.xdir;
+		//server_tanks[msg.username].body.ydir = msg.ydir;
+		//server_tanks[msg.username].body.xdir = msg.xdir;
 		server_tanks[msg.username].arm.x = msg.x;
 		server_tanks[msg.username].arm.y = msg.y;
 		server_tanks[msg.username].arm.angle = msg.arm;
@@ -98,7 +95,7 @@ WORLD_PADDING = WORLD_PADDING * 2;
 
 
 
-game.renderer.clearBeforeRender = false;
+
 game.renderer.roundPixels = true;
 
 
@@ -305,6 +302,11 @@ function update(){
 			bullets.splice(i,1);
 			continue
 		}
+		
+		if (collides(tank.body,bullets[i])){
+			alert('you dead');
+		}
+		
 		bullets[i].y -= bullets[i].changex * BULLET_SPEED;
 		bullets[i].x += bullets[i].changey * BULLET_SPEED;
 		}
