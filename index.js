@@ -39,10 +39,10 @@ wss.on('connection', function(ws) {
 		
 		ws.send(JSON.stringify(ServerTanks));
 	}
-	if (evt == "update tank" || evt == "new bullet"){
-		
+	if (evt == "update tank" || evt == "new bullet" || evt == "dead"){
 		broadcast(message);
 	}
+
 
   });
   
