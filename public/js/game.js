@@ -199,7 +199,7 @@ function simple_collides (a,b){
 	}
 	
 	
-};
+
 function move_tank(tank){
 	collision = {t:false,b:false,l:false,r:false};
 	walls.forEach(function(wall){
