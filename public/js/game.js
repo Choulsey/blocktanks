@@ -277,6 +277,7 @@ function make_bullet(tank){
 	new_bullet.changex = Math.cos(new_bullet.rotation);
 	new_bullet.changey = Math.sin(new_bullet.rotation);
 	new_bullet.bounces = 0;
+	new_bullet.mine = true;
 	return new_bullet;
 }
 
@@ -287,6 +288,7 @@ function make_server_bullet(x,y,changex,changey){
 	new_bullet.changex = changex;
 	new_bullet.changey = changey;
 	new_bullet.bounces = 0;
+	new_bullet.mine = false;
 	return new_bullet;
 }
 
@@ -322,7 +324,7 @@ function update(){
 			continue
 		}
 		
-		if (simple_collides(tank.body,bullets[i])){
+		if (simple_collides(tank.body,bullets[i]) && bullets[i].mine == false){
 			alert('you dead');
 		}
 		
