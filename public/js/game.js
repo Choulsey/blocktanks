@@ -6,20 +6,9 @@ name = prompt("What is your name?");
 
 var socket = new FancyWebSocket(ws);
 
-socket.bind("dead",function(msg){
-	
-	tank_explode = game.add.sprite(server_tanks[msg.username],server_tanks[msg.username].y,"bullet_explode",5);
-	tank_explode.anchor.set(0.5);
-	tank_explode.scale.set(5);
-	tank_explode_animation = tank_explode.animations.add('explode');
-	tank_explode_animation.play(25,false)
-	tank_explode_animation.onComplete.add(function(sprite){
-		sprite.destroy();
-	}, this);
-	
-	server_tanks[msg.username].x = 1180;
-	server_tanks[msg.username].y = 1510;
-	
+socket.bind("you dead",function(msg){
+	respawn(tank);
+
 });
 
 socket.bind("disconnection",function(msg){
@@ -367,8 +356,12 @@ function update(){
 			}
 		}
 		
-		if (simple_collides(tank.body,bullets[i]) && bullets[i].mine == false){
-			respawn(tank);
+		for (var tank in server_tanks){
+		if(bullets[i].mine){
+			if (simple_collides(server_tanks[tank].body,bullets[i])){
+				socket.send("you dead",{username:tank});
+				respawn(server_tanks[tanks]);
+			}
 		}
 		
 		bullets[i].y -= bullets[i].changex * BULLET_SPEED;
@@ -381,7 +374,7 @@ function update(){
 function respawn(tank){
 	tank.body.x = tank.arm.x = 1180;
 	tank.body.y = tank.arm.y = 1510;
-	socket.send("dead",{username:name});
+
 }
 
 function blow_up_bullet(bullet){
