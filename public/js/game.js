@@ -368,7 +368,7 @@ function update(){
 		bullets[i].x += bullets[i].changey * BULLET_SPEED;
 		}
 		
-	
+	}	
 }
 
 function respawn(tank){
