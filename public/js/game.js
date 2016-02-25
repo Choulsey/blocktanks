@@ -330,18 +330,35 @@ function update(){
 		FIRED = false;
 	}
 	for(i=0;i < bullets.length;i++){
-		collision = false;
+		collision_top = false;
+		collision_left = false;
 		walls.forEach(function(wall){
 			if(collides(wall,bullets[i])){
-				collision = true;
+				if(wall.wall_location.orientation = "top"){
+					collided_top = true;	
+				}
+				else{
+					collided_left = true;
+				}
 				
 			}	
 		},this)
-		if (collision){
-			blow_up_bullet(bullets[i]);
-			bullets[i].destroy();
-			bullets.splice(i,1);
-			continue
+		if (collided_top || collided_left){
+			if(bullets[i].bounces < 1){
+				bullets[i].bounces += 1;
+				if (collided_top){
+					bullets[i].y = 0 - bullets[i].y;
+				}
+				else{
+					bullets[i].x = 0 - bullets[i].x;
+				}
+			}
+			else{
+				blow_up_bullet(bullets[i]);
+				bullets[i].destroy();
+				bullets.splice(i,1);
+				continue
+			}
 		}
 		
 		if (simple_collides(tank.body,bullets[i]) && bullets[i].mine == false){
@@ -352,7 +369,7 @@ function update(){
 		bullets[i].x += bullets[i].changey * BULLET_SPEED;
 		}
 		
-	BULLET_COUNTER += 1;
+	
 }
 
 function respawn(tank){
