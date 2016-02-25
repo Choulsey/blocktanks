@@ -97,7 +97,7 @@ var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:crea
 
 var moved = 0;
 var delay = 0;
-var TANK_SPEED = 4;
+var TANK_SPEED = 3;
 var unit = W/2500;
 var TANK_SIZE = 0.5;
 var ARM_SIZE = 1.2;
