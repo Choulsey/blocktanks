@@ -168,10 +168,7 @@ function create(){
 	
 }
 function collides (a,b){
-	a.left  = (a.x - a.width * a.anchor.x)
-    a.top  = (a.y - a.height * a.anchor.y)
-    b.left  = (b.x - b.width * b.anchor.x) 
-    b.top  = (b.y - b.height * b.anchor.y) 
+
 	if(a.wall_location.orientation == "left"){
     	if(a != undefined)
     	{
