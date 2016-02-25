@@ -330,10 +330,10 @@ function update(){
 		FIRED = false;
 	}
 	for(i=0;i < bullets.length;i++){
-		collision = [0,0,0,1];
+		collision = false;
 		walls.forEach(function(wall){
 			if(collides(wall,bullets[i])){
-				collision = ;
+				collision = true;
 				
 			}	
 		},this)
