@@ -346,7 +346,7 @@ function update(){
 		if (collided_top || collided_left){
 			if(bullets[i].bounces < 1){
 				bullets[i].bounces += 1;
-				if (collided_top){
+				if (collided_left){
 					bullets[i].y = 0 - bullets[i].y;
 				}
 				else{
