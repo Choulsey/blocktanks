@@ -347,10 +347,10 @@ function update(){
 			if(bullets[i].bounces < 1){
 				bullets[i].bounces += 1;
 				if (collided_left){
-					bullets[i].y = 0 - bullets[i].y;
+					bullets[i].changey = 0 - bullets[i].changey;
 				}
 				else{
-					bullets[i].x = 0 - bullets[i].x;
+					bullets[i].changex = 0 - bullets[i].changex;
 				}
 			}
 			else{
