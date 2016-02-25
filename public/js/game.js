@@ -312,7 +312,8 @@ function update(){
 	//update_server_tanks();
 	move_tank(tank);
 	aim_tank(tank);	
-	if (game.input.mousePointer.isDown && FIRED == false){
+	if (game.input.mousePointer.isDown){
+		if(FIRED == false){
 		FIRED = true;
 		socket.send("new bullet",{
 			x:tank.body.x,
@@ -325,7 +326,9 @@ function update(){
 			
 		bullets.push(make_bullet(tank));
 		BULLET_COUNTER = 0;	
+		}
 	}
+	
 	else{
 		FIRED = false;
 	}
