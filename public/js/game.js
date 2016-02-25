@@ -313,7 +313,7 @@ function update(){
 	move_tank(tank);
 	aim_tank(tank);	
 	if (game.input.mousePointer.isDown){
-		if(FIRED == false){
+		if(FIRED == false && bullets.length < 5){
 		FIRED = true;
 		socket.send("new bullet",{
 			x:tank.body.x,
