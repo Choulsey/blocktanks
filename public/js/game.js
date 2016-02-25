@@ -334,7 +334,7 @@ function update(){
 		collided_left = false;
 		walls.forEach(function(wall){
 			if(collides(wall,bullets[i])){
-				if(wall.wall_location.orientation = "top"){
+				if(wall.wall_location.orientation == "top"){
 					collided_top = true;	
 					alert("top collision");
 				}
