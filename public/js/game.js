@@ -336,8 +336,10 @@ function update(){
 			if(collides(wall,bullets[i])){
 				if(wall.wall_location.orientation = "top"){
 					collided_top = true;	
+					alert("top collision");
 				}
 				else{
+					alert("left collision");
 					collided_left = true;
 				}
 				
@@ -347,9 +349,11 @@ function update(){
 			if(bullets[i].bounces < 1){
 				bullets[i].bounces += 1;
 				if (collided_left){
+					alert("left collision detected");
 					bullets[i].changey = 0 - bullets[i].changey;
 				}
 				else{
+					alert("top collision detected");
 					bullets[i].changex = 0 - bullets[i].changex;
 				}
 			}
