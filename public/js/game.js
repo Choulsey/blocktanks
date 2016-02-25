@@ -330,8 +330,8 @@ function update(){
 		FIRED = false;
 	}
 	for(i=0;i < bullets.length;i++){
-		collision_top = false;
-		collision_left = false;
+		collided_top = false;
+		collided_left = false;
 		walls.forEach(function(wall){
 			if(collides(wall,bullets[i])){
 				if(wall.wall_location.orientation = "top"){
