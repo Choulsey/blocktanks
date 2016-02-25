@@ -97,12 +97,12 @@ var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:crea
 
 var moved = 0;
 var delay = 0;
-var TANK_SPEED = 3;
+var TANK_SPEED = 4;
 var unit = W/2500;
 var TANK_SIZE = 0.5;
 var ARM_SIZE = 1.2;
 var bullets = [];
-var BULLET_SPEED = 5;
+var BULLET_SPEED = 6.5;
 var BULLET_COUNTER = 0;
 var FIRED = false;
 var WORLD_BOUNDS = {x:4000,y:3000};
