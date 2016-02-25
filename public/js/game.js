@@ -98,6 +98,8 @@ var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:crea
 var moved = 0;
 var delay = 0;
 var TANK_SPEED = 3;
+var SPRINT_SPEED = 4;
+var SPRINTING = false;
 var unit = W/2500;
 var TANK_SIZE = 0.5;
 var ARM_SIZE = 1.2;
@@ -336,24 +338,24 @@ function update(){
 			if(collides(wall,bullets[i])){
 				if(wall.wall_location.orientation == "top"){
 					collided_top = true;	
-					alert("top collision");
+					
 				}
 				else{
-					alert("left collision");
+					
 					collided_left = true;
 				}
 				
 			}	
 		},this)
 		if (collided_top || collided_left){
-			if(bullets[i].bounces < 1){
+			if(bullets[i].bounces < 5){
 				bullets[i].bounces += 1;
 				if (collided_left){
-					alert("left collision detected");
+				
 					bullets[i].changey = 0 - bullets[i].changey;
 				}
 				else{
-					alert("top collision detected");
+					
 					bullets[i].changex = 0 - bullets[i].changex;
 				}
 			}
