@@ -348,7 +348,7 @@ function update(){
 			}	
 		},this)
 		if (collided_top || collided_left){
-			if(bullets[i].bounces < 2){
+			if(bullets[i].bounces < 1){
 				bullets[i].bounces += 1;
 				if (collided_left){
 				
