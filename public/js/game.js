@@ -104,7 +104,7 @@ var ARM_SIZE = 1.2;
 var bullets = [];
 var BULLET_SPEED = 8;
 var BULLET_COUNTER = 0;
-var FIRE_RATE = 20;
+var FIRED = false;
 var WORLD_BOUNDS = {x:4000,y:3000};
 var WORLD_PADDING = 1000
 WORLD_PADDING = WORLD_PADDING * 2;
@@ -312,7 +312,8 @@ function update(){
 	//update_server_tanks();
 	move_tank(tank);
 	aim_tank(tank);	
-	if (game.input.mousePointer.isDown && BULLET_COUNTER > FIRE_RATE){
+	if (game.input.mousePointer.isDown && FIRED == false){
+		FIRED = true;
 		socket.send("new bullet",{
 			x:tank.body.x,
 			y:tank.body.y,
@@ -325,11 +326,14 @@ function update(){
 		bullets.push(make_bullet(tank));
 		BULLET_COUNTER = 0;	
 	}
+	else{
+		FIRED = false;
+	}
 	for(i=0;i < bullets.length;i++){
-		collision = false
+		collision = [0,0,0,1];
 		walls.forEach(function(wall){
 			if(collides(wall,bullets[i])){
-				collision = true;
+				collision = ;
 				
 			}	
 		},this)
