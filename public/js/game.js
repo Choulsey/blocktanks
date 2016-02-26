@@ -7,7 +7,9 @@ name = prompt("What is your name?");
 var socket = new FancyWebSocket(ws);
 
 socket.bind("you dead",function(msg){
-	respawn(server_tanks[msg.username]);
+	if(msg.username == name){
+		respawn(tank);
+	}
 
 });
 
@@ -355,7 +357,12 @@ function update(){
 				continue
 			}
 		}
-		
+		for var key in server_tanks{
+			if (simple_collides(server_tanks[key].body,bullets[i])){
+				respawn(server_tanks[key]);
+				socket.send("you dead",{username:key});
+			}
+		}
 
 		
 		bullets[i].y -= bullets[i].changex * BULLET_SPEED;
