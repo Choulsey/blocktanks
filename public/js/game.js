@@ -361,7 +361,7 @@ function update(){
 		for (key in server_tanks){
 			if (simple_collides(server_tanks[key].body,bullets[i])){
 				respawn(server_tanks[key]);
-				alert(key);
+				
 				socket.send("you dead",{username:key});
 			}
 		}
