@@ -371,9 +371,9 @@ function update(){
 	}	
 }
 
-function respawn(tank){
-	tank.body.x = tank.arm.x = 1180;
-	tank.body.y = tank.arm.y = 1510;
+function respawn(user_tank){
+	user_tank.body.x = user_tank.arm.x = 1180;
+	user_tank.body.y = user_tank.arm.y = 1510;
 
 }
 
