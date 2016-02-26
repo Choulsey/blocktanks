@@ -55,6 +55,8 @@ socket.bind("server tanks",function(msg){
 		new_arm.scale.set(TANK_SIZE * ARM_SIZE);
 		server_tanks[server_tank].arm = new_arm;
 		
+		server_tanks[server_tank].text = game.add.text(msg[server_tank].x,msg[server_tank].y - 60,{font:"50px Poiret One",fill:"#666666",align:'center'})
+		
 		}
 	}
 	}
