@@ -7,7 +7,7 @@ name = prompt("What is your name?");
 var socket = new FancyWebSocket(ws);
 
 socket.bind("you dead",function(msg){
-	respawn(tank);
+	respawn(server_tanks[msg.username]);
 
 });
 
