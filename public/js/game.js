@@ -7,6 +7,7 @@ name = prompt("What is your name?");
 var socket = new FancyWebSocket(ws);
 
 socket.bind("you dead",function(msg){
+	alert("dead")
 	if(msg.username == name){
 		respawn(tank);
 	}
