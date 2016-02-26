@@ -356,10 +356,10 @@ function update(){
 			}
 		}
 		
-		for (var tank in server_tanks){
+		for (tank_key in server_tanks){
 		if(bullets[i].mine){
-			if (simple_collides(server_tanks[tank].body,bullets[i])){
-				socket.send("you dead",{username:tank});
+			if (simple_collides(server_tanks[tank_key].body,bullets[i])){
+				socket.send("you dead",{username:tank_key});
 				respawn(server_tanks[tanks]);
 			}
 		}
