@@ -363,7 +363,7 @@ function update(){
 		}
 		
 	}	
-}
+
 
 function respawn(user_tank){
 	user_tank.body.x = user_tank.arm.x = 1180;
