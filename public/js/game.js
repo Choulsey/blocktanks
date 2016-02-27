@@ -367,8 +367,8 @@ function update(){
 			}
 		}
 		for (key in server_tanks){
-			if (simple_collides(server_tanks[key].body,bullets[i]) && bullets[i].life > 3){
-				alert(key);
+			if (simple_collides(server_tanks[key].body,bullets[i]) && bullets[i].life > 10){
+				
 				socket.send("you dead",{username:key});
 				respawn(server_tanks[key]);
 				
