@@ -394,9 +394,9 @@ function update(){
 
 
 function respawn(user_tank){
-	user_tank.body.x = user_tank.arm.x = 1180;
+	user_tank.body.x = user_tank.arm.x = user_tank.text.x = 1180 ;
 	user_tank.body.y = user_tank.arm.y = 1510;
-
+	user_tank.text.y = 1550;
 }
 
 function blow_up_bullet(bullet){
@@ -410,6 +410,6 @@ function blow_up_bullet(bullet){
 	
 }
 function render(){
-	game.debug.spriteCoords(tank.body, 30, 30);
-	game.debug.text(game.time.fps,30,100)
+	
+	game.debug.text("FPS: " + game.time.fps,30,100)
 }
