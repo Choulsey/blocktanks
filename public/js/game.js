@@ -39,8 +39,8 @@ socket.bind("new tank",function(msg){
 		
 		x = msg.x;
 		y = msg.y + 50;
-		server_tanks[server_tank].text = game.add.text(x,y,msg.username,{font:"15px Arial",fill:"#666666",align:'center'});
-		server_tanks[server_tank].text.anchor.set(0.5);
+		server_tanks[msg.username].text = game.add.text(x,y,msg.username,{font:"15px Arial",fill:"#666666",align:'center'});
+		server_tanks[msg.username].text.anchor.set(0.5);
 	}
 	
 });
@@ -80,12 +80,9 @@ socket.bind("server tanks",function(msg){
 
 socket.bind("update tank",function(msg){
 	if (msg.username != name){
-		server_tanks[msg.username].body.x = msg.x;
-		server_tanks[msg.username].body.y = msg.y;
-		//server_tanks[msg.username].body.ydir = msg.ydir;
-		//server_tanks[msg.username].body.xdir = msg.xdir;
-		server_tanks[msg.username].arm.x = msg.x;
-		server_tanks[msg.username].arm.y = msg.y;
+		server_tanks[msg.username].body.x = server_tanks[msg.username].arm.x = msg.x;
+		server_tanks[msg.username].body.y = server_tanks[msg.username].arm.y = msg.y;
+		
 		server_tanks[msg.username].arm.angle = msg.arm;
 	}
 });
