@@ -1,3 +1,5 @@
+
+
 var ws = new WebSocket(location.origin.replace(/^http/, 'ws'))
 var server_tanks = {};
 
@@ -101,10 +103,13 @@ socket.bind("new bullet",function(msg){
 
 var W = window.innerWidth;
 var H =  window.innerHeight;
+var div = document.getElementById('count');
+div.style.left = W/2;
+div.style.top = H/10;
 
 var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:create,update:update,render:render},false,false);
 var new_count = false;
-var count = 0;
+var count = 1;
 var moved = 0;
 var delay = 0;
 var TANK_SPEED = 3;
@@ -321,6 +326,10 @@ function make_server_bullet(x,y,changex,changey){
 }
 
 function update(){
+	if (new_count){
+		new_count = false;
+		div.innerHTML = count + " players online.";
+	}
 	//update_server_tanks();
 	move_tank(tank);
 	aim_tank(tank);	
