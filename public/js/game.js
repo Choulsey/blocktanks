@@ -288,7 +288,7 @@ function make_bullet(tank){
 	new_bullet.changex = Math.cos(new_bullet.rotation);
 	new_bullet.changey = Math.sin(new_bullet.rotation);
 	new_bullet.bounces = 0;
-	new_bullet.mine = true;
+	new_bullet.life = 0;
 	return new_bullet;
 }
 
@@ -299,7 +299,7 @@ function make_server_bullet(x,y,changex,changey){
 	new_bullet.changex = changex;
 	new_bullet.changey = changey;
 	new_bullet.bounces = 0;
-	new_bullet.mine = false;
+	new_bullet.life = 0;
 	return new_bullet;
 }
 
@@ -328,6 +328,7 @@ function update(){
 		FIRED = false;
 	}
 	for(i=0;i < bullets.length;i++){
+		bullets[i].life += 1;
 		collided_top = false;
 		collided_left = false;
 		walls.forEach(function(wall){
@@ -363,7 +364,7 @@ function update(){
 			}
 		}
 		for (key in server_tanks){
-			if (simple_collides(server_tanks[key].body,bullets[i])){
+			if (simple_collides(server_tanks[key].body,bullets[i]) && bullets[i].life > 3){
 				alert(key);
 				socket.send("you dead",{username:key});
 				respawn(server_tanks[key]);
