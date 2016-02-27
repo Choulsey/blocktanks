@@ -11,6 +11,9 @@ socket.bind("you dead",function(msg){
 	if(msg.username == name){
 		respawn(tank);
 	}
+	else{
+		respawn(server_tanks[msg.username])
+	}
 
 });
 
