@@ -101,8 +101,10 @@ var bullets = [];
 var BULLET_SPEED = 6.5;
 var BULLET_COUNTER = 0;
 var FIRED = false;
-var WORLD_BOUNDS = {x:4000,y:3000};
-var WORLD_PADDING = 1000
+var camera_scale = 1.5
+var WORLD_BOUNDS = {x:4000 * camera_scale,y:3000 * camera_scale};
+var WORLD_PADDING = 1000 * camera_scale;
+
 WORLD_PADDING = WORLD_PADDING * 2;
 
 
@@ -161,7 +163,7 @@ function create(){
     game.world.setBounds(0, 0, WORLD_BOUNDS.x, WORLD_BOUNDS.y);
 	game.camera.follow(tank.body);
 	socket.send("new tank",{username:name,x:tank.body.x,y:tank.body.y})
-	game.world.scale.set(2);
+	game.world.scale.set(camera_scale);
 }
 function collides (a,b){
 
