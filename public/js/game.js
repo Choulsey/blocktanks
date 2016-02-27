@@ -18,6 +18,8 @@ socket.bind("you dead",function(msg){
 });
 
 socket.bind("disconnection",function(msg){
+	count -= 1;
+	new_count = true;
 	console.log("some dude logged off");
 	server_tanks[msg.username].body.destroy();
 	server_tanks[msg.username].arm.destroy();
@@ -26,6 +28,8 @@ socket.bind("disconnection",function(msg){
 });
 
 socket.bind("new tank",function(msg){
+	count++;
+	new_count = true;
 	if (msg.username != name){
 		server_tanks[msg.username] = {};
 		new_tank = game.add.sprite(msg.x,msg.y,"body");
@@ -52,8 +56,8 @@ socket.bind("server tanks",function(msg){
 	if (msg != {}){
 	for (var server_tank in msg){
 		if(server_tank != name){
-			
-		alert("tank found!");
+		new_count = true;	
+		count++;
 		server_tanks[server_tank] = {};
 		new_server_tank = game.add.sprite(msg[server_tank].x,msg[server_tank].y,"body");
 		new_server_tank.anchor.set(0.5);
@@ -99,8 +103,8 @@ var W = window.innerWidth;
 var H =  window.innerHeight;
 
 var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:create,update:update,render:render},false,false);
-
-
+var new_count = false;
+var count = 0;
 var moved = 0;
 var delay = 0;
 var TANK_SPEED = 3;
@@ -161,6 +165,7 @@ function preload(){
 	game.time.advancedTiming = true;
 }
 function create(){
+	
 	background = game.add.tileSprite(WORLD_PADDING/2, WORLD_PADDING/2, 2000, 1000, "background");
 	maze_list = [[[1,1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]],[[0,1],[1,1],[1,1],[0,1],[1,1],[1,1],[1,1],[0,1],[1,0],[1,0],[1,0],[1,0],[0,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[0,1]],[[0,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,0],[0,0],[1,1],[1,1],[1,1],[1,1],[0,1],[1,0],[1,0],[1,1],[1,1],[1,1],[1,1],[0,1]],[[0,1],[1,0],[1,0],[1,1],[1,1],[0,1],[1,1],[1,1],[1,1],[1,1],[1,0],[1,0],[1,1],[1,1],[0,1],[1,1],[1,1],[1,1],[1,0],[0,0]],[[0,1],[0,0],[0,0],[1,0],[1,0],[0,0],[1,1],[1,1],[1,1],[0,1],[0,0],[0,0],[1,0],[1,0],[0,0],[1,0],[1,0],[0,0],[0,0],[0,0]],[[0,1],[0,0],[0,0],[0,0],[0,0],[0,0],[1,0],[1,0],[1,0],[0,0],[0,0],[1,1],[1,1],[1,1],[0,1],[0,0],[0,0],[0,0],[0,0],[0,0]],[[0,1],[0,0],[0,0],[1,1],[1,1],[0,1],[1,1],[1,1],[0,1],[0,0],[0,0],[1,1],[1,1],[1,1],[0,1],[1,1],[1,1],[0,1],[0,0],[0,0]],[[0,1],[1,1],[1,1],[1,1],[1,1],[0,1],[1,0],[1,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,0],[0,0],[1,1],[1,1],[1,1],[1,1],[0,1]],[[0,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[0,1],[1,0],[1,0],[1,0],[1,0],[0,0],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[0,1]],[[0,1],[1,0],[1,0],[0,0],[1,0],[1,0],[1,0],[0,0],[1,1],[1,1],[1,1],[1,1],[0,1],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[0,0]]]
 	walls = maze_generator.draw_simple_maze(maze_list,100,10,"maze_wall","maze wall left",WORLD_PADDING/2,WORLD_PADDING/2);
