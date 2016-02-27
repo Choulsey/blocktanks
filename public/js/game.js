@@ -60,6 +60,7 @@ socket.bind("server tanks",function(msg){
 		
 		server_tanks[server_tank].text = game.add.text(1130,1510,"hello",{font:"50px Arial",fill:"#666666",align:'center'})
 		server_tanks[server_tank].text.anchor.set(0.5);
+		server_tanks[server_tank].body.addChild(server_tanks[server_tank].text)
 		}
 	}
 	}
