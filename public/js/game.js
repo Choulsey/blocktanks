@@ -101,7 +101,7 @@ var bullets = [];
 var BULLET_SPEED = 6.5;
 var BULLET_COUNTER = 0;
 var FIRED = false;
-var camera_scale = 1.5
+var camera_scale = 1;
 var WORLD_BOUNDS = {x:4000 * camera_scale,y:3000 * camera_scale};
 var WORLD_PADDING = 1000 * camera_scale;
 
@@ -364,9 +364,11 @@ function update(){
 		}
 		for (key in server_tanks){
 			if (simple_collides(server_tanks[key].body,bullets[i])){
+				alert(key);
+				socket.send("you dead",{username:key});
 				respawn(server_tanks[key]);
 				
-				socket.send("you dead",{username:key});
+	
 			}
 		}
 
