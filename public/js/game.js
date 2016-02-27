@@ -21,6 +21,7 @@ socket.bind("disconnection",function(msg){
 	console.log("some dude logged off");
 	server_tanks[msg.username].body.destroy();
 	server_tanks[msg.username].arm.destroy();
+	server_tanks[msg.username].text.destroy();
 	delete server_tanks[msg.username];
 });
 
@@ -82,7 +83,7 @@ socket.bind("update tank",function(msg){
 	if (msg.username != name){
 		server_tanks[msg.username].body.x = server_tanks[msg.username].arm.x = msg.x;
 		server_tanks[msg.username].body.y = server_tanks[msg.username].arm.y = msg.y;
-		server_tanks[msg.username].text.x = msg.x + 40;
+		server_tanks[msg.username].text.x = msg.x;
 		server_tanks[msg.username].text.y = msg.y + 40;
 		server_tanks[msg.username].arm.angle = msg.arm;
 	}
