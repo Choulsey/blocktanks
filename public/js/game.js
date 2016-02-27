@@ -58,7 +58,7 @@ socket.bind("server tanks",function(msg){
 		new_arm.scale.set(TANK_SIZE * ARM_SIZE);
 		server_tanks[server_tank].arm = new_arm;
 		
-		server_tanks[server_tank].text = game.add.text(1130,1510,"hello",{font:"50px Arial",fill:"#666666",align:'center'})
+		server_tanks[server_tank].text = game.add.text(msg[server_tank].x,msg[server_tank].y,"hello",{font:"50px Arial",fill:"#666666",align:'center'})
 		server_tanks[server_tank].text.anchor.set(0.5);
 		
 		}
