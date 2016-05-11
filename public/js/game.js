@@ -109,7 +109,7 @@ div.style.top = H/10;
 
 var game = new Phaser.Game(W,H,Phaser.CANVAS,'game',{preload:preload,create:create,update:update,render:render},false,false);
 var new_count = false;
-var count = 1;
+var count = 0;
 var moved = 0;
 var delay = 0;
 var TANK_SPEED = 3;
